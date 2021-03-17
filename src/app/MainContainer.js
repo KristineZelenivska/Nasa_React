@@ -25,13 +25,27 @@ class Main extends Component {
     showError: false
   }
 
+getDate=(type)=>{
+  let today = new Date();
+  let dd =''
+  let mm =''
+  let yyyy =''
+  if(type==='today'){
+     dd= String(today.getDate()).padStart(2, '0');
+     mm = String(today.getMonth() + 1).padStart(2, '0'); 
+     yyyy = today.getFullYear();
+  }else{
+    today = momentRandom(today,'1995-06-16');
+     dd = String(today.date()).padStart(2, '0');
+     mm = String(today.month() + 1).padStart(2, '0');
+     yyyy = today.year();
+  }
+  today = yyyy + '-' + mm + '-' + dd;
+  return today
+}
+
   componentDidMount() {
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); 
-    const yyyy = today.getFullYear();
-    today = yyyy + '-' + mm + '-' + dd;
-    this.props.actions.getNasaData(today,()=>this.toggleToastState());
+    this.props.actions.getNasaData(this.getDate('today'),()=>this.toggleToastState());
   }
 
   toggleToastState = () => {
@@ -40,30 +54,10 @@ class Main extends Component {
     }));
   };
 
-  getDate=()=> {
-    let today = new Date();
-    const ddT = String(today.getDate()).padStart(2, '0');
-    const mmT = String(today.getMonth() + 1).padStart(2, '0'); 
-    const yyyyT = today.getFullYear();
-    today = yyyyT + '-' + mmT + '-' + ddT;
-
-    let randomDate = momentRandom(today,'1995-06-16');
-    const dd = String(randomDate.date()).padStart(2, '0');
-    const mm = String(randomDate.month() + 1).padStart(2, '0');
-    const yyyy = randomDate.year();
-   
-    randomDate = yyyy + '-' + mm + '-' + dd;
-
-    return randomDate;
-}
   getRandomPost = () => {
     const { actions } = this.props;
-    actions.getNasaData(this.getDate(), ()=>this.toggleToastState());
+    actions.getNasaData(this.getDate('random'), ()=>this.toggleToastState());
   };
-
- scrollTop = () =>{
-    window.scrollTo({top: 0, behavior: 'smooth'});
- };
  
   render() {
     const {nasa} = this.props
