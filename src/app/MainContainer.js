@@ -17,7 +17,6 @@ import { getNasaData} from '../redux/actions/nasaAction.js';
   
   const mapStateToProps = (state) => ({
     nasa: get(state,'nasa.model',[]),
-    error:get(state,'nasa.error')
   });
   
 class Main extends Component {

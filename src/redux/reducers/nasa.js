@@ -1,6 +1,5 @@
 const initialState = {
   model:[],
-  error:false
 }
 
 export default function nasa (state = initialState, { type, payload }) {
@@ -9,7 +8,6 @@ export default function nasa (state = initialState, { type, payload }) {
       return {
         ...state,
         model:[...state.model,payload],
-        error:false
       };
     case 'GET_NASA_ERROR':
       return {
